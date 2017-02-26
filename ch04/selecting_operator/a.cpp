@@ -74,7 +74,8 @@ public:
     cls operator+=(cls const& rhs)
     {
         printf("%s\n", __FUNCTION__);
-        return cls(++m_int);
+		m_int += rhs.m_int;
+        return *this;
     }
 
     int get()
