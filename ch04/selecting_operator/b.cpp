@@ -74,7 +74,8 @@ public:
     cls operator+=(cls const& rhs)
     {
         printf("%s\n", __FUNCTION__);
-        return cls(++m_int);
+        m_int += rhs.m_int;
+        return *this;
     }
 
     int get()
@@ -86,6 +87,29 @@ private:
     int m_int;
 };
 
+class post
+{
+public:
+    post(int val): m_int(val) {}
+
+    post operator++(int)
+    {
+        printf("%s\n", __FUNCTION__);
+        post tmp(m_int);
+        ++m_int;
+        return tmp;
+    }
+
+    int get()
+    {
+        return m_int;
+    }
+
+private:
+    int m_int;
+};
+
+
 int main()
 {
     int x = 5;
@@ -95,6 +119,14 @@ int main()
     cls y(89);
     inc(y);
     printf("y = %d\n", y.get());
+
+    post z(140);
+    inc(z);
+    printf("z = %d\n", z.get());
+
+    post alpha = z++;
+    printf("alpha = %d\n", alpha.get());
+    printf("z = %d\n", z.get());
 
     return 0;
 }
